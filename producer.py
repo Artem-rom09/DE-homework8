@@ -30,11 +30,13 @@ if not producer:
 
 # --- Читання файлу та відправка повідомлень ---
 print(f"Starting to stream data from {DATA_SOURCE_FILE} to topic '{KAFKA_TOPIC}'...")
+# ...
 try:
     with open(DATA_SOURCE_FILE, 'r', encoding='utf-8') as file:
-        reader = csv.DictReader(file, delimiter='\t')
+        reader = csv.DictReader(file, delimiter=',')
         for row in reader:
-            # Створюємо повідомлення, замінюючи час на поточний
+            print(f"DEBUG: {list(row.keys())}") 
+            break                          
             message = {
                 'review_id': row.get('review_id'),
                 'product_id': row.get('product_id'),
